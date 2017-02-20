@@ -1,0 +1,19 @@
+{
+  "name": "module-discovery",
+  "version": "1.0.0",
+  "description": "requires node module recursively from a root directory a execute callback",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khezen/module-discovery.git"
+  },
+  "author": "Guillaume Simonneau",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/khezen/module-discovery/issues"
+  },
+  "homepage": "https://github.com/khezen/module-discovery#readme"
+}
