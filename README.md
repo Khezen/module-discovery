@@ -10,6 +10,7 @@ Requires node modules recursively from a root directory and execute callback.
 
 
 mongoose example
+
 ```
 const mongoose = require("mongoose");
 const mdiscover = require("module-discovery");
@@ -17,8 +18,8 @@ const mdiscover = require("module-discovery");
 mongoose.connect("mongodb://localhost:27017/example");
 
 mongoose.connection.once("open", function(){
-  mdiscover(__dirname + "/model", (model) => {
-    mongoose.model(model.name, model.schema);
+  mdiscover(__dirname + "/model", (collection) => {
+    mongoose.model(collection.name, collection.schema);
   });
 });
 ```
