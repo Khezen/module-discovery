@@ -1,7 +1,8 @@
 {
   "name": "module-discovery",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "requires node module recursively from a root directory a execute callback",
+  "keywords": ["module", "discovery"],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
