@@ -2,21 +2,52 @@
 const fs = require("fs");
 
 function discovery(directory, callback){
-  fs.readdirSync(directory).
-  forEach((file) => {
-    let path = directory + "/" + file;
-    let inputStat = fs.lstatSync(path);
-    if(inputStat.isDirectory()){
-      discovery(path);
+
+  const files = fs.readdirSync(directory);
+  const len = files.length;
+  let count = 0;
+  let discoveries = [];
+
+  function fileDone(resolve){
+    count++;
+    if(count === len){
+      resolve(discoveries);
+    }
+  }
+  function discoverDir(resolve, reject, path){
+    discovery(path).
+    then(function(newDiscoveries){
+      discoveries = discoveries.concat(newDiscoveries);
+      fileDone(resolve);
+    }).
+    catch(function(error){
+      reject(error);
+    });
+  }
+
+  function discoverFile(resolve, reject, path){
+    let discovered = require(path);
+    if(!discovered){
+      reject(new Error("failed to require the following package: "+path));
     }else{
-      let discovered = require(path);
-      if(!discovered){
-        throw new Error("failed to require the following package: "+path);
-      }
-      if(callback && discovered){
+      discoveries.push(discovery);
+      if(callback){
         callback.call(undefined, discovered);
       }
+      fileDone(resolve);
     }
+  }
+
+  return new Promise( function(resolve, reject){
+    files.forEach((file) => {
+      let path = directory + "/" + file;
+      let inputStat = fs.lstatSync(path);
+      if(inputStat.isDirectory()){
+        discoverDir(resolve, reject, path);
+      }else{
+        discoverFile(resolve, reject, path);
+      }
+    });
   });
 }
 
