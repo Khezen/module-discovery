@@ -1,6 +1,10 @@
 "use strict";
 const fs = require("fs");
 
+function requireFailed(path){
+  console.err("failed to require the following package: "+path);
+}
+
 function discovery(directory, callback){
   let _this = this;
   fs.readdirSync(directory).
@@ -10,14 +14,18 @@ function discovery(directory, callback){
     if(inputStat.isDirectory()){
       discovery(path);
     }else{
+      let discovered = null;
       try{
-        var discovered = require(path);
-        if(callback){
-          callback.call(_this, discovered);
+        discovered = require(path);
+        if(!discovered){
+          requireFailed(path);
         }
       }
       catch(e){
-        console.err("failed to require the following package: "+path);
+        requireFailed(path);
+      }
+      if(callback && discovered){
+        callback.call(_this, discovered);
       }
     }
   });
