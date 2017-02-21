@@ -1,6 +1,6 @@
 {
   "name": "module-discovery",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "requires node module recursively from a root directory a execute callback",
   "keywords": ["module", "discovery"],
   "main": "index.js",

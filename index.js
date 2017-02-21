@@ -10,9 +10,14 @@ function discovery(directory, callback){
     if(inputStat.isDirectory()){
       discovery(path);
     }else{
-      var discovered = require(path);
-      if(callback){
-        callback.call(_this, discovered);
+      try{
+        var discovered = require(path);
+        if(callback){
+          callback.call(_this, discovered);
+        }
+      }
+      catch(e){
+        console.err("failed to require the following package: "+path);
       }
     }
   });
