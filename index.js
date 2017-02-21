@@ -2,7 +2,7 @@
 const fs = require("fs");
 
 function requireFailed(path){
-  console.err("failed to require the following package: "+path);
+  console.error("failed to require the following package: "+path);
 }
 
 function discovery(directory, callback){
