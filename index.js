@@ -14,6 +14,7 @@ function discovery(directory, callback){
       resolve(discoveries);
     }
   }
+  
   function discoverDir(resolve, reject, path){
     discovery(path).
     then(function(newDiscoveries){
@@ -28,7 +29,7 @@ function discovery(directory, callback){
   function discoverFile(resolve, reject, path){
     let discovered = require(path);
     if(!discovered){
-      reject(new Error("failed to require the following package: "+path));
+      reject(new Error(`failed to require the following package: ${path}`));
     }else{
       discoveries.push(discovery);
       if(callback){
@@ -40,7 +41,7 @@ function discovery(directory, callback){
 
   return new Promise( function(resolve, reject){
     files.forEach((file) => {
-      let path = directory + "/" + file;
+      let path = `${directory}/${file}`;
       let inputStat = fs.lstatSync(path);
       if(inputStat.isDirectory()){
         discoverDir(resolve, reject, path);
