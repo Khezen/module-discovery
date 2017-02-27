@@ -14,7 +14,7 @@ function discovery(directory, callback){
       resolve(discoveries);
     }
   }
-  
+
   function discoverDir(resolve, reject, path){
     discovery(path).
     then(function(newDiscoveries){
@@ -31,7 +31,7 @@ function discovery(directory, callback){
     if(!discovered){
       reject(new Error(`failed to require the following package: ${path}`));
     }else{
-      discoveries.push(discovery);
+      discoveries.push(discovered);
       if(callback){
         callback.call(undefined, discovered);
       }
