@@ -33,7 +33,7 @@ function discovery(directory, callback){
     }else{
       discoveries.push(discovered);
       if(callback){
-        callback.call(undefined, discovered);
+        callback.call({}, discovered);
       }
       fileDone(resolve);
     }
