@@ -16,7 +16,7 @@ const mdiscover = require("module-discovery");
 mongoose.connect("mongodb://localhost:27017/example");
 
 mongoose.connection.once("open", () => {
-  mdiscover(__dirname + "/colelctions", (collection) => {
+  mdiscover(__dirname + "/colelctions", collection => {
     mongoose.model(collection.name, collection.schema);
   });
 });
@@ -37,10 +37,10 @@ mongoose.connect("mongodb://localhost:27017/example");
 
 mongoose.connection.once("open", () => {
   let models = [];
-  mdiscover(__dirname + "/colelctions", (collection) => {
+  mdiscover(__dirname + "/colelctions", collection => {
     models.push(mongoose.model(collection.name, collection.schema));
   }).
-  then((modules) => {
+  then(modules => {
     api.use("/graphql", graphqlHTTP({
       schema: graffiti.getSchema(models),
       graphiql: true
