@@ -7,24 +7,25 @@ Requires node modules recursively from a root directory and execute callback.
 
 `npm install --save module-discovery`
 
-mongoose example
+`mongoose` example
 
 ```
 const mongoose = require("mongoose");
 const mdiscover = require("module-discovery");
 
 mongoose.connect("mongodb://localhost:27017/example");
-
 mongoose.connection.once("open", () => {
+
 
   mdiscover(__dirname + "/colelctions", collection => {
     mongoose.model(collection.name, collection.schema);
   });
 
+
 });
 ```
 
-mongoose + graphql example
+`mongoose` `graphql` example
 
 
 
@@ -35,11 +36,12 @@ const mdiscover = require("module-discovery");
 const graphqlHTTP = require('express-graphql');
 const graffiti = require("@risingstack/graffiti-mongoose");
 
-const app = express();
+let app = express();
+app.set('port', 8080);
 
 mongoose.connect("mongodb://localhost:27017/example");
-
 mongoose.connection.once("open", () => {
+
 
   mdiscover(__dirname + "/colelctions", collection => {
     return mongoose.model(collection.name, collection.schema);
@@ -49,7 +51,11 @@ mongoose.connection.once("open", () => {
       schema: graffiti.getSchema(models),
       graphiql: true
     }));
+  }).
+  then( () => {
+    app.listen(app.get('port'));
   });
+
 
 });
 ```
