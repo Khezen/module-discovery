@@ -1,5 +1,4 @@
 [![NPM Version](http://img.shields.io/npm/v/module-discovery.svg?style=flat)](https://www.npmjs.org/package/module-discovery)
-[![NPM Downloads](https://img.shields.io/npm/dm/module-discovery.svg?style=flat)](https://www.npmjs.org/package/module-discovery)
 
 # module-discovery
 Requires node modules recursively from a root directory and execute callback.
