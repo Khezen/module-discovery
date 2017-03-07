@@ -16,9 +16,11 @@ const mdiscover = require("module-discovery");
 mongoose.connect("mongodb://localhost:27017/example");
 
 mongoose.connection.once("open", () => {
+
   mdiscover(__dirname + "/colelctions", collection => {
     mongoose.model(collection.name, collection.schema);
   });
+
 });
 ```
 
@@ -38,6 +40,7 @@ const app = express();
 mongoose.connect("mongodb://localhost:27017/example");
 
 mongoose.connection.once("open", () => {
+
   mdiscover(__dirname + "/colelctions", collection => {
     return mongoose.model(collection.name, collection.schema);
   }).
@@ -47,5 +50,6 @@ mongoose.connection.once("open", () => {
       graphiql: true
     }));
   });
+
 });
 ```
