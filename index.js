@@ -30,13 +30,12 @@ function discovery(directory, callback){
     let discovered = require(path);
     if(!discovered){
       reject(new Error(`failed to require the following package: ${path}`));
+    }else if(callback){
+      discoveries.push(callback.call({}, discovered));
     }else{
       discoveries.push(discovered);
-      if(callback){
-        callback.call({}, discovered);
-      }
-      fileDone(resolve);
     }
+    fileDone(resolve);
   }
 
   return new Promise( function(resolve, reject){

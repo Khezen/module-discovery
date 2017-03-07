@@ -24,6 +24,8 @@ mongoose.connection.once("open", () => {
 
 mongoose + graphql example
 
+
+
 ```
 const express = require("express");
 const mongoose = require("mongoose");
@@ -31,17 +33,16 @@ const mdiscover = require("module-discovery");
 const graphqlHTTP = require('express-graphql');
 const graffiti = require("@risingstack/graffiti-mongoose");
 
-const api = express();
+const app = express();
 
 mongoose.connect("mongodb://localhost:27017/example");
 
 mongoose.connection.once("open", () => {
-  let models = [];
   mdiscover(__dirname + "/colelctions", collection => {
-    models.push(mongoose.model(collection.name, collection.schema));
+    return mongoose.model(collection.name, collection.schema);
   }).
-  then(modules => {
-    api.use("/graphql", graphqlHTTP({
+  then(models => { // an array containing the discovered modules if callback returns nothing.
+    app.use("/graphql", graphqlHTTP({
       schema: graffiti.getSchema(models),
       graphiql: true
     }));
