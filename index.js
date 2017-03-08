@@ -17,7 +17,7 @@ function discovery(directory, callback){
 
   function discoverDir(resolve, reject, path){
     discovery(path).
-    then(function(newDiscoveries){
+    then(newDiscoveries => {
       discoveries = discoveries.concat(newDiscoveries);
       fileDone(resolve);
     }).
@@ -39,7 +39,7 @@ function discovery(directory, callback){
   }
 
   return new Promise( function(resolve, reject){
-    files.forEach((file) => {
+    files.forEach(file => {
       let path = `${directory}/${file}`;
       let inputStat = fs.lstatSync(path);
       if(inputStat.isDirectory()){
