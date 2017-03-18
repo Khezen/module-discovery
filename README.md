@@ -9,7 +9,7 @@ Requires node modules recursively from a root directory and execute callback.
 
 `mongoose` example
 
-```
+```javascript
 const mongoose = require("mongoose");
 const mdiscover = require("module-discovery");
 
@@ -29,7 +29,7 @@ mongoose.connection.once("open", () => {
 
 
 
-```
+```javascript
 const express = require("express");
 const mongoose = require("mongoose");
 const mdiscover = require("module-discovery");
